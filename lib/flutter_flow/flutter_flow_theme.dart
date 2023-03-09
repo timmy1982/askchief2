@@ -45,7 +45,6 @@ abstract class FlutterFlowTheme {
   late Color overlay0;
   late Color primary30;
   late Color secondary30;
-  late Color backgroundComponents;
 
   String get title1Family => typography.title1Family;
   TextStyle get title1 => typography.title1;
@@ -81,7 +80,6 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color overlay0 = Color(0x00FFFFFF);
   late Color primary30 = Color(0x4D9489F5);
   late Color secondary30 = Color(0x4C39D2C0);
-  late Color backgroundComponents = Color(0xFF1D2428);
 }
 
 abstract class Typography {
@@ -173,7 +171,6 @@ class DarkModeTheme extends FlutterFlowTheme {
   late Color overlay0 = Color(0x000B191E);
   late Color primary30 = Color(0x4D9489F5);
   late Color secondary30 = Color(0x4C39D2C0);
-  late Color backgroundComponents = Color(0xFF1D2428);
 }
 
 extension TextStyleHelper on TextStyle {
