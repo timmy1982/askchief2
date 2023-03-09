@@ -39,7 +39,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ),
               ),
             )
-          : GPTFlowWidget(),
+          : DisclaimerHomeWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
@@ -54,7 +54,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     ),
                   ),
                 )
-              : GPTFlowWidget(),
+              : DisclaimerHomeWidget(),
           routes: [
             FFRoute(
               name: 'GPTFlow',

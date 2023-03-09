@@ -5,7 +5,7 @@
 
 
     <application
-        android:label="FlutterFlow GPT Ai"
+        android:label="Ask Chief"
         tools:replace="android:label"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">

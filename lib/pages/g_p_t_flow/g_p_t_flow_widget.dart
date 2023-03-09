@@ -571,7 +571,7 @@ class _GPTFlowWidgetState extends State<GPTFlowWidget> {
                                         ) ==
                                         null) {
                                       await Future.delayed(
-                                          const Duration(milliseconds: 50));
+                                          const Duration(milliseconds: 2));
                                     } else {
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
@@ -587,40 +587,41 @@ class _GPTFlowWidgetState extends State<GPTFlowWidget> {
                                         },
                                       ).then((value) => setState(() {}));
                                     }
+
+                                    _model.chatGPTResponse =
+                                        await OpenAIChatGPTGroup
+                                            .sendFullPromptCall
+                                            .call(
+                                      apiKey:
+                                          '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',
+                                      promptJson: _model.chatHistory,
+                                    );
+                                    if ((_model.chatGPTResponse?.succeeded ??
+                                        true)) {
+                                      setState(() {
+                                        _model.chatHistory =
+                                            functions.saveChatHistory(
+                                                _model.chatHistory,
+                                                getJsonField(
+                                                  (_model.chatGPTResponse
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                  r'''$['choices'][0]['message']''',
+                                                ));
+                                      });
+                                      setState(() {
+                                        _model.textController?.clear();
+                                      });
+                                    }
+                                    await Future.delayed(
+                                        const Duration(milliseconds: 800));
+                                    await _model.listViewController?.animateTo(
+                                      _model.listViewController!.position
+                                          .maxScrollExtent,
+                                      duration: Duration(milliseconds: 100),
+                                      curve: Curves.ease,
+                                    );
                                   }
-                                  _model.chatGPTResponse =
-                                      await OpenAIChatGPTGroup
-                                          .sendFullPromptCall
-                                          .call(
-                                    apiKey:
-                                        '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',
-                                    promptJson: _model.chatHistory,
-                                  );
-                                  if ((_model.chatGPTResponse?.succeeded ??
-                                      true)) {
-                                    setState(() {
-                                      _model.chatHistory =
-                                          functions.saveChatHistory(
-                                              _model.chatHistory,
-                                              getJsonField(
-                                                (_model.chatGPTResponse
-                                                        ?.jsonBody ??
-                                                    ''),
-                                                r'''$['choices'][0]['message']''',
-                                              ));
-                                    });
-                                    setState(() {
-                                      _model.textController?.clear();
-                                    });
-                                  }
-                                  await Future.delayed(
-                                      const Duration(milliseconds: 800));
-                                  await _model.listViewController?.animateTo(
-                                    _model.listViewController!.position
-                                        .maxScrollExtent,
-                                    duration: Duration(milliseconds: 100),
-                                    curve: Curves.ease,
-                                  );
 
                                   setState(() {});
                                 },

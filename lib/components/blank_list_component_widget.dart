@@ -80,7 +80,7 @@ class _BlankListComponentWidgetState extends State<BlankListComponentWidget> {
                 children: [
                   SelectionArea(
                       child: AutoSizeText(
-                    'You can build a custom ChatGPT x FlutterFlow app in a matter of minutes 🤯\n\nTry out the project by typing a response below or clone the project by clicking the button above  🎉',
+                    'Ask Chief is not affiliated with the Department of Defense (DoD). Do not share personally identifiable information (PII), protected health information (PHI), or controlled unclassified information (CUI) on this platform.',
                     style: FlutterFlowTheme.of(context).subtitle1.override(
                           fontFamily: 'Plus Jakarta Sans',
                           color: FlutterFlowTheme.of(context).primaryBtnText,
