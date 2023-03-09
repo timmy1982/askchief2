@@ -553,6 +553,13 @@ class _GPTFlowWidgetState extends State<GPTFlowWidget> {
                                 ),
                                 showLoadingIndicator: true,
                                 onPressed: () async {
+                                  setState(() {
+                                    _model.chatHistory =
+                                        functions.saveChatHistory(
+                                            _model.chatHistory,
+                                            functions.convertToJSON(
+                                                _model.textController.text));
+                                  });
                                   _model.apitextscan =
                                       await ContextMonitorCall.call(
                                     text: _model.textController.text,
@@ -562,13 +569,6 @@ class _GPTFlowWidgetState extends State<GPTFlowWidget> {
                                           (_model.apitextscan?.jsonBody ?? ''),
                                         ) ==
                                         null) {
-                                      setState(() {
-                                        _model.chatHistory =
-                                            functions.saveChatHistory(
-                                                _model.chatHistory,
-                                                functions.convertToJSON(_model
-                                                    .textController.text));
-                                      });
                                       _model.chatGPTResponse =
                                           await OpenAIChatGPTGroup
                                               .sendFullPromptCall
