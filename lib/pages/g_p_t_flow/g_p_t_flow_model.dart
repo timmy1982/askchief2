@@ -27,8 +27,6 @@ class GPTFlowModel extends FlutterFlowModel {
   // State field(s) for TextField widget.
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
-  // Stores action output result for [Backend Call - API (context monitor)] action in IconButton widget.
-  ApiCallResponse? apitextscan;
   // Stores action output result for [Backend Call - API (Send Full Prompt)] action in IconButton widget.
   ApiCallResponse? chatGPTResponse;
 

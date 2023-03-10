@@ -560,68 +560,39 @@ class _GPTFlowWidgetState extends State<GPTFlowWidget> {
                                             functions.convertToJSON(
                                                 _model.textController.text));
                                   });
-                                  _model.apitextscan =
-                                      await ContextMonitorCall.call(
-                                    text: _model.textController.text,
+                                  _model.chatGPTResponse =
+                                      await OpenAIChatGPTGroup
+                                          .sendFullPromptCall
+                                          .call(
+                                    apiKey:
+                                        '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',
+                                    promptJson: _model.chatHistory,
                                   );
-                                  if ((_model.apitextscan?.succeeded ?? true)) {
-                                    if (ContextMonitorCall.pii(
-                                          (_model.apitextscan?.jsonBody ?? ''),
-                                        ) ==
-                                        null) {
-                                      _model.chatGPTResponse =
-                                          await OpenAIChatGPTGroup
-                                              .sendFullPromptCall
-                                              .call(
-                                        apiKey:
-                                            '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',
-                                        promptJson: _model.chatHistory,
-                                      );
-                                      if ((_model.chatGPTResponse?.succeeded ??
-                                          true)) {
-                                        setState(() {
-                                          _model.chatHistory =
-                                              functions.saveChatHistory(
-                                                  _model.chatHistory,
-                                                  getJsonField(
-                                                    (_model.chatGPTResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$['choices'][0]['message']''',
-                                                  ));
-                                        });
-                                        setState(() {
-                                          _model.textController?.clear();
-                                        });
-                                      }
-                                      await Future.delayed(
-                                          const Duration(milliseconds: 800));
-                                      await _model.listViewController
-                                          ?.animateTo(
-                                        _model.listViewController!.position
-                                            .maxScrollExtent,
-                                        duration: Duration(milliseconds: 100),
-                                        curve: Curves.ease,
-                                      );
-                                    } else {
-                                      await showDialog(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return AlertDialog(
-                                            title: Text('No'),
-                                            content: Text('Pii'),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext),
-                                                child: Text('Ok'),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    }
+                                  if ((_model.chatGPTResponse?.succeeded ??
+                                      true)) {
+                                    setState(() {
+                                      _model.chatHistory =
+                                          functions.saveChatHistory(
+                                              _model.chatHistory,
+                                              getJsonField(
+                                                (_model.chatGPTResponse
+                                                        ?.jsonBody ??
+                                                    ''),
+                                                r'''$['choices'][0]['message']''',
+                                              ));
+                                    });
+                                    setState(() {
+                                      _model.textController?.clear();
+                                    });
                                   }
+                                  await Future.delayed(
+                                      const Duration(milliseconds: 800));
+                                  await _model.listViewController?.animateTo(
+                                    _model.listViewController!.position
+                                        .maxScrollExtent,
+                                    duration: Duration(milliseconds: 100),
+                                    curve: Curves.ease,
+                                  );
 
                                   setState(() {});
                                 },
